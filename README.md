@@ -65,7 +65,7 @@ The scheduler supports two types of tasks: `exec` and `eval`.
 The `TaskTracker` class is the core of the dependency management system.
 
 -   **Dependency Graph:** It uses Python's built-in `graphlib.TopologicalSorter` to manage the task dependency graph and determine which tasks are ready to run based on the status of their dependencies.
--   **Task State:** The state of each task (e.g., `PENDING`, `RUNNING`, `COMPLETED`, `FAILED`, `SKIPPED`) is tracked in a separate dictionary within the `TaskTracker`.
+-   **Task State:** The state of each task (e.g., `PENDING`, `RUNNING`, `OK`, `FAILED`, `SKIPPED`) is tracked in a separate dictionary within the `TaskTracker`.
 -   **Failure and Skipping:**
     -   If a task fails during execution, it is marked as `FAILED`.
     -   Any task that depends on a `FAILED` or `SKIPPED` task will automatically be marked as `SKIPPED` and will not be executed. This ensures that the scheduler doesn't waste resources on tasks that are guaranteed to fail or are no longer relevant.

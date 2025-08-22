@@ -19,8 +19,8 @@ def test_execution_order():
 
     ready_tasks = task_tracker.get_ready()
     assert ready_tasks == {"task1", "task2"}
-    task_tracker.tasks["task1"].status = TaskStatus.COMPLETED
-    task_tracker.tasks["task2"].status = TaskStatus.COMPLETED
+    task_tracker.tasks["task1"].status = TaskStatus.OK
+    task_tracker.tasks["task2"].status = TaskStatus.OK
     task_tracker.topo_sorter.done("task1")
     task_tracker.topo_sorter.done("task2")
 

@@ -6,7 +6,7 @@ from typing import List, Tuple, Literal, Optional
 class TaskStatus(Enum):
     PENDING = 0
     RUNNING = 1
-    COMPLETED = 2
+    OK = 2
     FAILED = 3
     SKIPPED = 4
 

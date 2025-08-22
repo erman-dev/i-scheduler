@@ -34,7 +34,7 @@ async def runner(task_name: str, task_tracker: TaskTracker):
     the task as RUNNING. It then calls the executor to run the task and waits
     for the result.
 
-    Based on the execution result, it updates the task's status to COMPLETED
+    Based on the execution result, it updates the task's status to OK
     or FAILED. It also logs any stdout, stderr, or exceptions that occur.
     Finally, it marks the task as done in the topological sorter to allow
     dependent tasks to run.
@@ -51,7 +51,7 @@ async def runner(task_name: str, task_tracker: TaskTracker):
     # If execution was successful, mark the task as completed and print
     # output if available
     if result.return_code == 0 and result.exception is None:
-        task_tracker.tasks[task_name].status = TaskStatus.COMPLETED
+        task_tracker.tasks[task_name].status = TaskStatus.OK
         if result.stdout:
             logger.info(f"Output {task_name}: {result.stdout}")
 

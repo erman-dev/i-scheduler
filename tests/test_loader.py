@@ -6,6 +6,7 @@ from pydantic import ValidationError as PydanticValidationError
 from scheduler.loader import (
     load_and_validate_data,
     populate_task_tracker,
+    validate_unique_task_names,
 )
 from scheduler.models import InputTaskModel
 from scheduler.task_tracker import TaskTracker
@@ -133,3 +134,16 @@ def test_populate_task_tracker():
     assert "task2" in task_tracker.tasks
     assert task_tracker.tasks["task1"].dependencies == ()
     assert task_tracker.tasks["task2"].dependencies == ("task1",)
+
+
+def test_duplicate_task_name_fails():
+    """
+    Test that a ValueError is raised when duplicate task names are found.
+    """
+    task_defs = [
+        InputTaskModel(name="task1", type="exec", arguments="echo 'task1'"),
+        InputTaskModel(name="task1", type="exec", arguments="echo 'task2'"),
+    ]
+
+    with pytest.raises(ValueError):
+        validate_unique_task_names(task_defs)

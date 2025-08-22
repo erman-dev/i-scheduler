@@ -27,6 +27,19 @@ def load_and_validate_data(file_path: str, schema_path: str) -> InputModel:
     return InputModel.model_validate(raw_data)
 
 
+def validate_unique_task_names(tasks_data: List[InputTaskModel]) -> None:
+    """Check if all task names are unique.
+
+    :param tasks_data: A list of validated task data models.
+    :raises ValueError: If duplicate task names are found.
+    """
+    seen_names = set()
+    for task in tasks_data:
+        if task.name in seen_names:
+            raise ValueError(f"Duplicate task name found: {task.name}")
+        seen_names.add(task.name)
+
+
 def populate_task_tracker(task_tracker: TaskTracker,
                           tasks_data: List[InputTaskModel]) -> None:
     """Populate a TaskTracker from validated input tasks data.
@@ -51,9 +64,14 @@ def load_tasks(task_tracker: TaskTracker,
                schema_path: str) -> None:
     """Load tasks from a JSON file and populate a TaskTracker.
 
+    This function orchestrates the loading and validation of tasks from a
+    JSON file and then populates a given TaskTracker instance with those
+    tasks.
+
     :param task_tracker: The TaskTracker instance to populate.
     :param file_path: The path to the input JSON file.
     :param schema_path: The path to the JSON schema file for validation.
     """
     validated_data = load_and_validate_data(file_path, schema_path)
+    validate_unique_task_names(validated_data.tasks)
     populate_task_tracker(task_tracker, validated_data.tasks)

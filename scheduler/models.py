@@ -33,6 +33,6 @@ class InputModel(BaseModel):
 class ExecutionResult(BaseModel):
     stdout: str = ""
     stderr: str = ""
-    return_code: int | None = None
+    return_code: int = None
     exception: Optional[Exception] = None
     model_config = ConfigDict(arbitrary_types_allowed=True)

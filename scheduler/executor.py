@@ -9,9 +9,14 @@ logger = get_logger(__name__)
 
 
 async def execute_task(task: Task) -> ExecutionResult:
+    """Execute a task based on its type.
+
+    :param task: The task to execute.
+    :return: An ExecutionResult containing the output and status of the
+             execution.
+    :raises ValueError: If the task type is unknown.
     """
-    Executes a task based on its type.
-    """
+
     logger.debug(f"Executing task with arguments: {task.arguments}")
     if task.type == "exec":
         return await _execute_exec(task)
@@ -33,6 +38,7 @@ async def _execute_exec(task: Task) -> ExecutionResult:
     :return: An ExecutionResult containing the output and status of the
              execution.
     """
+
     try:
         process = await asyncio.create_subprocess_shell(
             task.arguments,
@@ -52,7 +58,12 @@ async def _execute_exec(task: Task) -> ExecutionResult:
 
 
 def _blocking_eval(code: str) -> Tuple[str, str]:
-    """Execute a Python code snippet and capture stdout and stderr."""
+    """Execute a Python code snippet and capture stdout and stderr.
+
+    :param code: The Python code to execute.
+    :return: A tuple containing the captured stdout and stderr as strings.
+    """
+
     f_out = io.StringIO()
     f_err = io.StringIO()
     with redirect_stdout(f_out), redirect_stderr(f_err):
@@ -72,6 +83,7 @@ async def _execute_eval(task: Task) -> ExecutionResult:
     :return: An ExecutionResult containing the output and status of the
              execution.
     """
+
     try:
         loop = asyncio.get_running_loop()
         stdout, stderr = await loop.run_in_executor(

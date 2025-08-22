@@ -16,6 +16,7 @@ def load_and_validate_data(file_path: str, schema_path: str) -> InputModel:
     :raises pydantic.ValidationError: If the input data is invalid for the
                                       Pydantic model.
     """
+
     with open(file_path) as f:
         raw_data = json.load(f)
 
@@ -33,6 +34,7 @@ def validate_unique_task_names(tasks_data: List[InputTaskModel]) -> None:
     :param tasks_data: A list of validated task data models.
     :raises ValueError: If duplicate task names are found.
     """
+
     seen_names = set()
     for task in tasks_data:
         if task.name in seen_names:
@@ -72,6 +74,7 @@ def load_tasks(task_tracker: TaskTracker,
     :param file_path: The path to the input JSON file.
     :param schema_path: The path to the JSON schema file for validation.
     """
+
     validated_data = load_and_validate_data(file_path, schema_path)
     validate_unique_task_names(validated_data.tasks)
     populate_task_tracker(task_tracker, validated_data.tasks)

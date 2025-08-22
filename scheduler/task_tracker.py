@@ -20,6 +20,7 @@ class TaskTracker:
         :param name: The name of the task.
         :param task: The task object to add.
         """
+
         self.tasks[name] = task
 
     def validate_dependencies(self):
@@ -28,6 +29,7 @@ class TaskTracker:
         :raises KeyError: If a task has a dependency on a task that
                           does not exist.
         """
+
         all_task_names = set(self.tasks.keys())
         for task_name, task in self.tasks.items():
             missing_deps = set(task.dependencies) - all_task_names
@@ -49,6 +51,7 @@ class TaskTracker:
         :raises graphlib.CycleError: If a circular dependency is detected in
                                      the task graph.
         """
+
         self.validate_dependencies()
 
         graph = {name: set(task.dependencies)
@@ -65,6 +68,7 @@ class TaskTracker:
         :return: True if any dependency has failed or been skipped,
                  False otherwise.
         """
+
         logger.debug(
             "Deps status: "
             f"{[self.tasks[dep].status for dep in task.dependencies]}"
@@ -84,6 +88,7 @@ class TaskTracker:
 
         :return: A set of names of the tasks that are ready to be executed.
         """
+
         ready_tasks = self.topo_sorter.get_ready()
 
         to_run_tasks = set()

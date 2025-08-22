@@ -3,9 +3,8 @@ import sys
 
 
 def get_logger(name: str):
-    """
-    Get a logger instance
-    """
+    """Get a logger instance."""
+
     logger = logging.getLogger(name)
     logger.setLevel(logging.INFO)
     if not logger.handlers:

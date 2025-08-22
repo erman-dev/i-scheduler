@@ -15,6 +15,7 @@ def print_summary(task_tracker: TaskTracker):
 
     :param task_tracker: The TaskTracker instance containing the tasks.
     """
+
     headers = ["Name", "Status", "Type", "Arguments", "Dependencies"]
     rows = []
     for name, task in task_tracker.tasks.items():

@@ -39,7 +39,7 @@ tox -e pytest
 tox -e linters
 ```
 
-This will run all tests and provide a coverage report.
+This will run all tests, lint code and provide test coverage.
 
 ## Task Execution Strategy
 
@@ -64,7 +64,7 @@ The scheduler supports two types of tasks: `exec` and `eval`.
 
 The `TaskTracker` class is the core of the dependency management system.
 
--   **Dependency Graph:** It uses Python's built-in `graphlib.TopologicalSorter` to manage the task dependency graph and determine which tasks are ready to run based on the status of their dependecies.
+-   **Dependency Graph:** It uses Python's built-in `graphlib.TopologicalSorter` to manage the task dependency graph and determine which tasks are ready to run based on the status of their dependencies.
 -   **Task State:** The state of each task (e.g., `PENDING`, `RUNNING`, `COMPLETED`, `FAILED`, `SKIPPED`) is tracked in a separate dictionary within the `TaskTracker`.
 -   **Failure and Skipping:**
     -   If a task fails during execution, it is marked as `FAILED`.

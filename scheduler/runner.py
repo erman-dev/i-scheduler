@@ -23,12 +23,12 @@ def print_summary(task_tracker: TaskTracker):
 
     logger.info(
         "\n" +
-        tabulate(rows, headers=headers, tablefmt="grid", maxcolwidths=40)
+        tabulate(rows, headers=headers, tablefmt="grid", maxcolwidths=50)
     )
 
 
-async def runner(node: str, task_tracker: TaskTracker):
-    """Runs a single task and updates its status in the task tracker.
+async def runner(task_name: str, task_tracker: TaskTracker):
+    """Runs a single task and update its status in the task tracker.
 
     This coroutine is responsible for executing a single task. It first marks
     the task as RUNNING. It then calls the executor to run the task and waits
@@ -39,32 +39,32 @@ async def runner(node: str, task_tracker: TaskTracker):
     Finally, it marks the task as done in the topological sorter to allow
     dependent tasks to run.
 
-    :param node: The name of the task to run.
+    :param task_name: The name of the task to run.
     :param task_tracker: The TaskTracker instance managing the tasks.
     """
-    logger.info(f"Started: {node}")
 
     # Mark the task as running and run it
-    task_tracker.tasks[node].status = TaskStatus.RUNNING
-    result = await execute_task(task_tracker.tasks[node])
+    logger.info(f"Started: {task_name}")
+    task_tracker.tasks[task_name].status = TaskStatus.RUNNING
+    result = await execute_task(task_tracker.tasks[task_name])
 
     # If execution was successful, mark the task as completed and print
-    # output if applicable
+    # output if available
     if result.return_code == 0 and result.exception is None:
-        task_tracker.tasks[node].status = TaskStatus.COMPLETED
+        task_tracker.tasks[task_name].status = TaskStatus.COMPLETED
         if result.stdout:
-            logger.info(f"Output {node}: {result.stdout}")
+            logger.info(f"Output {task_name}: {result.stdout}")
 
     # else mark as failed and inform the user
     else:
-        task_tracker.tasks[node].status = TaskStatus.FAILED
+        task_tracker.tasks[task_name].status = TaskStatus.FAILED
         if result.stderr:
-            logger.error(f"Error {node}: {result.stderr}")
+            logger.error(f"Error {task_name}: {result.stderr}")
         if result.exception:
-            logger.error(f"Exception {node}: {result.exception}")
+            logger.error(f"Exception {task_name}: {result.exception}")
 
-    logger.info(f"Ended:   {node}")
-    task_tracker.topo_sorter.done(node)
+    logger.info(f"Ended:   {task_name}")
+    task_tracker.topo_sorter.done(task_name)
 
 
 async def main():
@@ -85,6 +85,7 @@ async def main():
 
     task_tracker.prepare_topo_sorter()
 
+    # Loop over all tasks until they are all finished
     while task_tracker.topo_sorter.is_active():
         node_group = task_tracker.get_ready()
 

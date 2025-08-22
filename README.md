@@ -72,3 +72,10 @@ The `TaskTracker` class is the core of the dependency management system.
     -   If a task fails during execution, it is marked as `FAILED`.
     -   Any task that depends on a `FAILED` or `SKIPPED` task will automatically be marked as `SKIPPED` and will not be executed. This ensures that the scheduler doesn't waste resources on tasks that are guaranteed to fail or are no longer relevant.
 
+
+## Note for the reviewers of the code
+
+This code was test on Ubuntu 24.04 with python3.12.3 which satisfies the python3.6+ requirement.
+As I understood it, the text said to develop it with python3.6+, but not make it backwards compatible
+down to python3.6. Graphlib, one of the core dependencies this code is written on top of is a library
+that is only supports python3.9+ as pythons 3.6-3.8 are end-of-life for quite some time.

@@ -2,9 +2,11 @@
 
 This program executes a set of tasks with a maximal level of concurrency while respecting the dependencies between the tasks.
 
+Author: Roman Krček
+
 ## Setup
 
-1.  **Create a virtual environment (recommended):**
+1.  **Create a virtual environment:**
     ```bash
     python3 -m venv .venv
     source .venv/bin/activate

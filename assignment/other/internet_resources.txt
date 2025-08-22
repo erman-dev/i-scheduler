@@ -1,0 +1,17 @@
+# This nicely shows how execution while waiting for parents could look like
+https://stackoverflow.com/questions/78670718/how-to-execute-a-dag-of-tasks-using-async-io
+
+# More complicated approach
+https://tomasfarias.dev/articles/async-patterns-in-python-dag-traversal/
+
+# Graphlib library can help the create the DAGs
+https://docs.python.org/3/library/graphlib.html
+
+# TopologycalSorter tracking failed state in an external object
+# even failed nodes are done as failed
+# nodes depending on failed nodes as marked as done in graphlib and as skipped in the object
+https://stackoverflow.com/questions/72083787/mark-node-as-failed-under-graphlib-topologicalsorter
+
+# Doc string PEP257 in combination with reST format
+https://peps.python.org/pep-0257/
+https://stackoverflow.com/questions/3898572/what-are-the-most-common-python-docstring-formats

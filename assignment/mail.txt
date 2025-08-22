@@ -1,0 +1,7 @@
+In attachment you find 2 assignments. We expect that each candidate submits a solution for one of the assignments.
+The scheduler assignment focuses on system programming, concurrency and algorithms. 
+The network automation assignment focuses on object-oriented modelling.
+These assignments are designed to evaluate a broad range of programming skills. 
+We advise the candidates to select the assignment that allows them to showcase their skills the most. 
+If they are stuck with a technical detail or can't find a proper design, 
+they should try to make the best possible solution and then document which part of the assignment they could not finish.

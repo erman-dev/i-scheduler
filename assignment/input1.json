@@ -1,0 +1,56 @@
+{
+    "tasks":[
+        {
+            "name":"task1",
+            "type":"exec",
+            "arguments": "ls"
+        },
+        {
+            "name":"task2",
+            "type":"eval",
+            "arguments": "import os; print(os.listdir())",
+            "dependencies": ["task3","task5"]
+        },
+        {
+            "name":"task3",
+            "type":"exec",
+            "arguments": "sleep 1",
+            "dependencies": ["task1"]
+        },
+        {
+            "name":"task4",
+            "type":"eval",
+            "arguments": "import time; time.sleep(5)"
+        },
+        {
+            "name":"task5",
+            "type":"eval",
+            "arguments": "import time; time.sleep(1)",
+            "dependencies": ["task4"]
+        },
+        {
+            "name":"task6",
+            "type":"exec",
+            "arguments": "false",
+            "dependencies": ["task5"]
+        },
+        {
+            "name":"task7",
+            "type":"exec",
+            "arguments": "sleep 3",
+            "dependencies": []
+        },
+        {
+            "name":"task8",
+            "type":"exec",
+            "arguments": "echo task 8 done",
+            "dependencies": ["task2"]
+        },
+        {
+            "name":"task9",
+            "type":"eval",
+            "arguments": "import time; time.sleep(100); print('task 9 done')",
+            "dependencies": ["task6", "task2"]
+        }       
+    ]
+}
